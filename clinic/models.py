@@ -1,6 +1,7 @@
 from django.db import models
+# from django.relativefilepathfield import RelativeFilePathField
 from django.contrib.auth.models import User
-
+import os
 
 class Schedule(models.Model):
     MON = 1
@@ -36,8 +37,15 @@ class Doctor(models.Model):
     education = models.TextField('Образование')
     birthDate = models.DateField('Дата рождения')
     schedule = models.ForeignKey(Schedule)
+    # photo = RelativeFilePathField(path='/home/bulat/projects/Okulist/clinic/static/clinic/img/')
+    photo = models.FilePathField(path='/home/bulat/projects/Okulist/clinic/static/clinic/img/')
+
     def __str__(self):
         return self.lastName + ' ' + self.firstName + ' ' + self.patronymic
+
+    def url(self):
+        path = self._meta.get_field('photo').path
+        return 'clinic/img/' + self.photo.replace(path, '', 1)
 
 class Holiday(models.Model):
     dateFrom = models.DateField()

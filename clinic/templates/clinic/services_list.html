@@ -1,0 +1,16 @@
+{% extends "clinic/base.html" %}
+{% block title %}
+Our services
+{% endblock %}
+
+{% block content %}
+{% if services_list %}
+    <ul>
+    {% for service in services_list %}
+        <li><a href="{{ service.id }}/">{{ service.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No services are available.</p>
+{% endif %}
+{% endblock %}

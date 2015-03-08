@@ -1,0 +1,16 @@
+{% extends "clinic/base.html" %}
+{% load staticfiles %}
+{% block title %}
+{{ doctor }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ doctor }}</h1>
+<!-- {{doctor.photo}} -->
+<img src="{% static  doctor.url %}" alt="{{ doctor }}" height=100/>
+<!-- <img src="clinic/img/{{ doctor.url }}" alt="{{ doctor }}" /> -->
+<ul class="list-group">
+  <li class="list-group-item">Образование: {{ doctor.education }}</li>
+  <li class="list-group-item">Дата Рождения: {{ doctor.birthDate }}</li>
+</ul>
+{% endblock %}
