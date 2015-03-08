@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    {% load staticfiles %}
+    <script src="{% static  "clinic/js/jquery-1.11.0.min.js" %}"></script>
+    <script src="{% static  "clinic/js/lightbox.min.js" %}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static  "clinic/css/lightbox.css" %}">
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
+    <ul class="nav nav-pills nav-justified">
+      <li><a href={% url 'index' %}>Главная</a></li>
+      <li><a href={% url 'doctors_list' %}>Специалисты</a></li>
+      <li><a href={% url 'services_list' %}>Услуги</a></li>
+    </ul>
+    {{ request.path }}
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
 	{% block content %}{% endblock %}

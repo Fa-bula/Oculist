@@ -1,14 +1,20 @@
 {% extends "clinic/base.html" %}
+{% load staticfiles %}
 {% block title %}Doctors{% endblock %}
 
 {% block content %}
 {% if doctors_list %}
-    <ul>
-    {% for doctor in doctors_list %}
-        <li><a href="{{ doctor.id }}/">{{ doctor }}</a></li>
-    {% endfor %}
-    </ul>
+<ul class="list-group">
+  {% for doctor in doctors_list %}
+  <li class="list-group-item">
+    <a href="{% static  doctor.url %}" class="example-image-link"  data-lightbox="image-{{doctor.id}}" data-title="{{ doctor }}">
+      <img class="example-image" src="{% static  doctor.url %}" alt="{{ doctor }}" height=100/>
+    </a>
+    <a href="{{ doctor.id }}/">{{ doctor }}</a>
+  </li>
+  {% endfor %}
+</ul>
 {% else %}
-    <p>No doctors are available.</p>
+<p>No doctors are available.</p>
 {% endif %}
 {% endblock %}

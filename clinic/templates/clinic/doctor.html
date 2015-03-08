@@ -5,11 +5,21 @@
 {% endblock %}
 
 {% block content %}
-<h1>{{ doctor }}</h1>
-<!-- {{doctor.photo}} -->
-<img src="{% static  doctor.url %}" alt="{{ doctor }}" height=100/>
-<!-- <img src="clinic/img/{{ doctor.url }}" alt="{{ doctor }}" /> -->
+
+
 <ul class="list-group">
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col-md-9">
+	<h2>{{ doctor }}</h2>
+      </div>
+      <div class="col-md-3">
+	<a href="{% static  doctor.url %}" class="example-image-link"  data-lightbox="image-1" data-title="{{ doctor }}">
+	  <img class="example-image" src="{% static  doctor.url %}" alt="{{ doctor }}" height=120/>
+	</a>
+      </div>
+    </div>
+  </li>
   <li class="list-group-item">Образование: {{ doctor.education }}</li>
   <li class="list-group-item">Дата Рождения: {{ doctor.birthDate }}</li>
 </ul>

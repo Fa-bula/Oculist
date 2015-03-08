@@ -18,3 +18,6 @@ def doctor_page(request, doctor_id):
 def service_page(request, service_id):
     context = {'service':  get_object_or_404(Service, pk=service_id)}
     return render(request, 'clinic/service.html', context)
+
+def index(request):
+    return render(request, 'clinic/index.html')

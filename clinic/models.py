@@ -25,10 +25,10 @@ class Schedule(models.Model):
     weekdayTo = models.IntegerField(choices=WEEKDAYS)
     hourFrom = models.TimeField()
     hourTo = models.TimeField()
+    name = models.TextField()
     
     def __str__(self):
-        return 'гы'
-        # return 'from ' + self.WEEKDAYS[self.weekdayFrom] + ' to ' + self.WEEKDAYS[self.weekdayTo]
+        return self.name
 
 class Doctor(models.Model):
     lastName = models.TextField('Фамилия')
@@ -37,15 +37,14 @@ class Doctor(models.Model):
     education = models.TextField('Образование')
     birthDate = models.DateField('Дата рождения')
     schedule = models.ForeignKey(Schedule)
-    # photo = RelativeFilePathField(path='/home/bulat/projects/Okulist/clinic/static/clinic/img/')
-    photo = models.FilePathField(path='/home/bulat/projects/Okulist/clinic/static/clinic/img/')
+    photo = models.FilePathField(path='/home/bulat/projects/Okulist/clinic/static/clinic/img/doctors/')
 
     def __str__(self):
         return self.lastName + ' ' + self.firstName + ' ' + self.patronymic
 
     def url(self):
         path = self._meta.get_field('photo').path
-        return 'clinic/img/' + self.photo.replace(path, '', 1)
+        return 'clinic/img/doctors/' + self.photo.replace(path, '', 1)
 
 class Holiday(models.Model):
     dateFrom = models.DateField()
