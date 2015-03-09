@@ -1,5 +1,4 @@
 from django.db import models
-# from django.relativefilepathfield import RelativeFilePathField
 from django.contrib.auth.models import User
 import os
 
