@@ -5,12 +5,14 @@ Our services
 
 {% block content %}
 {% if services_list %}
-    <ul>
-    {% for service in services_list %}
-        <li><a href="{{ service.id }}/">{{ service.name }}</a></li>
-    {% endfor %}
-    </ul>
+<ul class="list-group">
+  {% for service in services_list %}
+  <li class="list-group-item">
+    <a href="{{ service.id }}/">{{ service}}</a>
+  </li>
+  {% endfor %}
+</ul>
 {% else %}
-    <p>No services are available.</p>
+<p>No services are available.</p>
 {% endif %}
 {% endblock %}

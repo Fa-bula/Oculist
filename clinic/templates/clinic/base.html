@@ -6,19 +6,46 @@
     <script src="{% static  "clinic/js/lightbox.min.js" %}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static  "clinic/css/lightbox.css" %}">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    <ul class="nav nav-pills nav-justified">
-      <li><a href={% url 'index' %}>Главная</a></li>
-      <li><a href={% url 'doctors_list' %}>Специалисты</a></li>
-      <li><a href={% url 'services_list' %}>Услуги</a></li>
-    </ul>
-    {{ request.path }}
+    <div class="page-header">
+      <h1>Example page header<small>Subtext for header</small></h1>
+    </div>
+
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-	{% block content %}{% endblock %}
+      <div class="col-md-10 col-md-offset-1">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	    <ul class="nav nav-pills nav-justified">
+	      <li><a href={% url 'index' %}>Главная</a></li>
+	      <li><a href={% url 'doctors_list' %}>Специалисты</a></li>
+	      <li><a href={% url 'services_list' %}>Услуги</a></li>
+	      {% if not user.is_anonymous %}
+	      <li role="presentation"><a href="#">{{ user }}</a></li>
+	      <li role="presentation"><a href="{% url 'logout' %}">Выйти</a></li>
+	      {% else %}
+	      <li role="presentation"><a href="{% url 'register' %} ">Зарегистрироваться</a></li>
+	      <li role="presentation"><a href="{% url 'login' %}">Войти</a></li>
+	      {% endif %}
+	    </ul>
+	  </div>
+
+	  <div class="panel-body">
+	    <div class="row">
+	      <div class="col-md-8 col-md-offset-2">
+		{% block content %}{% endblock %}
+	      </div>
+	    </div>
+	  </div>
+	  
+	  <div class="panel-footer">
+	    <a href="https://github.com/Fa-bula/Okulist"><i class="fa fa-github fa-2x"></i></a>
+	  </div>
+	</div>
       </div>
     </div>
+
   </body>
 </html>

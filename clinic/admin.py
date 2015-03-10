@@ -7,7 +7,7 @@ from clinic.models import Doctor, Schedule, Service, Comment
 class DoctorAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Личная информация', {'fields': ['lastName', 'firstName', 'patronymic', 'birthDate']}),
-        ('Прочее', {'fields': ['education', 'schedule', 'photo']}),
+        ('Прочее', {'fields': ['doctorType', 'education', 'schedule', 'photo']}),
     ]
 
 class CommentAdmin(admin.ModelAdmin):
