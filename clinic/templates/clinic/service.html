@@ -5,25 +5,52 @@
 
 {% block content %}
 
-<ul class="list-group">
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-md-9">
-	<h2>{{ service }}</h2>
-      </div>
-    </div>
-  </li>
-  <li class="list-group-item">Описание: {{ service.description }}</li>
-  <li class="list-group-item">Цена: {{ service.cost }}</li>
-</ul>
 
-<form class="form-horizontal" action="{% url 'leave_comment' service.id%}">
-  <div class="form-group">
-    <label>Что вы думаете об этой услуге?</label>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ service }}</h3>
   </div>
-  <div class="form-group">
-    <textarea class="form-control" rows="3" name="content"></textarea>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt>Описание:</dt>
+      <dd>{{ service.description }}</dd>
+    </dl>
+    <dl class="dl-horizontal">
+      <dt>Цена:</dt>
+      <dd>{{ service.cost }} рублей</dd>
+    </dl>
   </div>
-  <button type="submit" class="btn btn-default">Отправить</button>
-</form>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Что вы думаете об этой услуге?</h3>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" action="{% url 'leave_comment' service.id%}" method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+      </div>
+      <div class="form-group">
+	<textarea class="form-control" rows="3" name="content"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Отправить</button>
+    </form>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Последние комментарии:</h3>
+  </div>
+  <div class="panel-body">
+      {% for comment in comments %}
+      <blockquote>
+	<p>{{ comment.content }}</p>
+	<footer>{{ comment.pubDate }}</footer>
+      </blockquote>
+      {% endfor %}
+  </div>
+</div>
+
 {% endblock %}
