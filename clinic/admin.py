@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from clinic.models import Doctor, Schedule, Service
+from clinic.models import Doctor, Schedule, Service, Comment
 
 class DoctorAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -10,7 +10,10 @@ class DoctorAdmin(admin.ModelAdmin):
         ('Прочее', {'fields': ['education', 'schedule', 'photo']}),
     ]
 
+class CommentAdmin(admin.ModelAdmin):
+    fields = ['service', 'content']
+    
 admin.site.register(Doctor, DoctorAdmin)
 admin.site.register(Schedule)
 admin.site.register(Service)
-admin.site.register(Comment)
+admin.site.register(Comment, CommentAdmin)

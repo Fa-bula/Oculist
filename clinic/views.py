@@ -16,7 +16,7 @@ def doctor_page(request, doctor_id):
     return render(request, 'clinic/doctor.html', context)
 
 def service_page(request, service_id):
-    context = {'service':  get_object_or_404(Service, pk=service_id)}
+    context = {'service':  get_object_or_404(Service, pk=service_id), 'comments': Comment.objects.order_by('-pubDate')}
     return render(request, 'clinic/service.html', context)
 
 def index(request):
@@ -24,9 +24,10 @@ def index(request):
 
 def leave_comment(request, service_id):
     content = request.POST['content']
-    comment = Comment(content=content, service=service_id)
+    comment = Comment(content=content, service=get_object_or_404(Service, pk=service_id))
     comment.save()
-    return '1'
-
+    # FIXME: Duplicate code
+    context = {'service':  get_object_or_404(Service, pk=service_id), 'comments': Comment.objects.order_by('-pubDate')}
+    return render(request, 'clinic/service.html', context)
 
     
