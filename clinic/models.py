@@ -45,6 +45,7 @@ class Doctor(models.Model):
         path = self._meta.get_field('photo').path
         return 'clinic/img/doctors/' + self.photo.replace(path, '', 1)
 
+
 class Holiday(models.Model):
     dateFrom = models.DateField()
     dateTo = models.DateField()
@@ -53,6 +54,7 @@ class Holiday(models.Model):
     doctor = models.ForeignKey(Doctor)
     def __str__(self):
         return 'from ' + self.dateFrom + ' to ' + self.dateTo + ', from' + self.hourFrom + ' to ' + self.hourTo
+
 
 class Patient(models.Model):
     firstName = models.TextField()
@@ -63,6 +65,7 @@ class Patient(models.Model):
     organization = models.TextField()
     position = models.TextField()
 
+
 class Service(models.Model):
     cost = models.IntegerField()
     name = models.TextField()
@@ -70,6 +73,7 @@ class Service(models.Model):
     def __str__(self):
         return self.name
         
+
 class Visit(models.Model):
     patient = models.ForeignKey(Patient)
     date = models.DateField()
@@ -77,6 +81,7 @@ class Visit(models.Model):
     hourTo = models.TimeField()
     def __str__(self):
         return self.date + ', from ' + self.hourFrom + ' to ' + self.hourTo
+
 
 class Comment(models.Model):
     service = models.ForeignKey(Service)

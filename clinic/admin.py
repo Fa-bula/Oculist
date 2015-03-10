@@ -13,3 +13,4 @@ class DoctorAdmin(admin.ModelAdmin):
 admin.site.register(Doctor, DoctorAdmin)
 admin.site.register(Schedule)
 admin.site.register(Service)
+admin.site.register(Comment)
