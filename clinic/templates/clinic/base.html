@@ -4,48 +4,66 @@
     {% load staticfiles %}
     <script src="{% static  "clinic/js/jquery-1.11.0.min.js" %}"></script>
     <script src="{% static  "clinic/js/lightbox.min.js" %}"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static  "clinic/css/lightbox.css" %}">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="{% static  "clinic/js/moment-with-locales.min.js" %}"></script>
+    <script src="{% static  "clinic/js/bootstrap-datetimepicker.min.js" %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static  "clinic/css/bootstrap-datetimepicker.min.css" %}">
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    <div class="page-header">
-      <h1>Example page header<small>Subtext for header</small></h1>
-    </div>
+   
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="{% url 'index' %}">Brand</a>
+	    </div>
 
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-	<div class="panel panel-default">
-	  <div class="panel-heading">
-	    <ul class="nav nav-pills nav-justified">
-	      <li><a href={% url 'index' %}>Главная</a></li>
-	      <li><a href={% url 'doctors_list' %}>Специалисты</a></li>
-	      <li><a href={% url 'services_list' %}>Услуги</a></li>
-	      {% if not user.is_anonymous %}
-	      <li role="presentation"><a href="#">{{ user }}</a></li>
-	      <li role="presentation"><a href="{% url 'logout' %}">Выйти</a></li>
-	      {% else %}
-	      <li role="presentation"><a href="{% url 'register' %} ">Зарегистрироваться</a></li>
-	      <li role="presentation"><a href="{% url 'login' %}">Войти</a></li>
-	      {% endif %}
-	    </ul>
-	  </div>
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+		<li><a href={% url 'index' %}>Главная</a></li>
+		<li><a href={% url 'doctors_list' %}>Специалисты</a></li>
+		<li><a href={% url 'services_list' %}>Услуги</a></li>
+	      </ul>
 
-	  <div class="panel-body">
-	    <div class="row">
-	      <div class="col-md-8 col-md-offset-2">
-		{% block content %}{% endblock %}
-	      </div>
+	      <ul class="nav navbar-nav navbar-right">
+		{% if not user.is_anonymous %}
+		<li><a href="#">{{ user }}</a></li>
+		<li><a href="{% url 'logout' %}">Выйти</a></li>
+		{% else %}
+		<li><a href="{% url 'register' %}">Зарегистрироваться</a></li>
+		<li><a href="{% url 'login' %}">Войти</a></li>
+		{% endif %}
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<div class="panel-body">
+	  <div class="row">
+	    <div class="col-md-8 col-md-offset-2">
+	      {% block content %}{% endblock %}
 	    </div>
 	  </div>
-	  
-	  <div class="panel-footer">
-	    <a href="https://github.com/Fa-bula/Okulist"><i class="fa fa-github fa-2x"></i></a>
+	</div>
+
+	<div class="panel-footer">
+	  <div class="container-fluid">
+	    <ul class="nav navbar-nav navbar-right">
+	      <a href="https://github.com/Fa-bula/Okulist"><i class="fa fa-github fa-2x"></i></a>
+	    </ul>
 	  </div>
 	</div>
+
       </div>
     </div>
-
   </body>
 </html>

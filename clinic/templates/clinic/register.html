@@ -4,7 +4,22 @@
 <h1>Регистрация пользователя</h1>
 <form action="" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+
+  <div class="form-group">
+    <label for="id_username">Имя пользователя:</label>
+    <input id="id_username" maxlength="30" name="username" type="text" class="form-control"/>
+    <span id="helpBlock" class="help-block">Не более 30 символов. Только буквы, цифры и символы @/./+/-/_.</span>
+  </div>
+  
+  <div class="form-group">
+    <label for="id_password1">Пароль:</label>
+    <input id="id_password1" name="password1" type="password" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label for="id_password2">Подтверждение пароля:</label>
+    <input id="id_password2" name="password2" type="password" class="form-control"/>
+  </div>
+
   <input type="submit" class="btn btn-default" value="Зарегистрироваться">
   <input type="hidden" class="button" name="next" value="{% url 'index' %}" />
 </form>
