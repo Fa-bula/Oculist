@@ -51,7 +51,10 @@ def register(request):
 
 @login_required(login_url='/login')
 def make_appointment(request, service_id):
-    # return HttpResponseRedirect('clinic/services/' + str(service_id))
-    context = {'service':  get_object_or_404(Service, pk=service_id)}
+    service = get_object_or_404(Service, pk=service_id)
+    context = {'service':  service,
+               'daysOfWeekDisabled': [i % 7 for i in range(1, 8) if i not in range(service.doctor.schedule.weekdayFrom, service.doctor.schedule.weekdayTo + 1)],
+               'today': "03/13/2015"
+    }
     return render(request, 'clinic/appointment.html', context)
     

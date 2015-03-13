@@ -40,9 +40,11 @@
 $(function () {
 $('#datetimepicker2').datetimepicker({
 locale: 'ru',
-enabledDates: [
-moment("03/25/2015"), 
-moment("03/23/2015")]
+daysOfWeekDisabled: {{ daysOfWeekDisabled }},
+minDate: moment("{{ today }}"),
+maxDate: moment("{{ today }}").add(14, 'days'),
+inline: true,
+sideBySide: true
 });
 });
 </script>
