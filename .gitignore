@@ -3,3 +3,4 @@ TAGS
 *.pyc
 clinic/__pycache__/*
 mysite/__pycache__/*
+mysite/settings.py

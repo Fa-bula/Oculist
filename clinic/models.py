@@ -58,6 +58,7 @@ class Doctor(models.Model):
     
     def print_specialization(self):
         return self.DOCTOR_TYPES[self.doctorType - 1][1]
+
 class Holiday(models.Model):
     dateFrom = models.DateField()
     dateTo = models.DateField()
@@ -68,13 +69,17 @@ class Holiday(models.Model):
         return 'from ' + self.dateFrom + ' to ' + self.dateTo + ', from' + self.hourFrom + ' to ' + self.hourTo
 
 class Patient(models.Model):
-    firstName = models.TextField()
-    lastName = models.TextField()
-    patronymic = models.TextField()
-    birthDate = models.DateField()
-    address = models.TextField()
-    organization = models.TextField()
-    position = models.TextField()
+    user = models.OneToOneField(User)
+    firstName = models.TextField('Имя')
+    lastName = models.TextField('Фамилия')
+    patronymic = models.TextField('Отчество')
+    birthDate = models.DateField('Дата Рождения')
+    address = models.TextField('Адрес')
+    organization = models.TextField('Место работы')
+    position = models.TextField('Должность')
+
+    def __str__(self):  
+        return self.firstName + ' ' + self.lastName  
 
 class Service(models.Model):
     cost = models.IntegerField()
@@ -93,11 +98,9 @@ class Service(models.Model):
         
 class Visit(models.Model):
     patient = models.ForeignKey(Patient)
-    date = models.DateField()
-    hourFrom = models.TimeField()
-    hourTo = models.TimeField()
+    dateTime = models.DateTimeField()
     def __str__(self):
-        return self.date + ', from ' + self.hourFrom + ' to ' + self.hourTo
+        return self.patient.__str__() + ' ' + self.dateTime.strftime("%d/%m/%Y %H:%M")
 
 class Comment(models.Model):
     service = models.ForeignKey(Service)

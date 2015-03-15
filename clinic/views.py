@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from clinic.models import Doctor, Service, Comment
+from clinic.models import Doctor, Service, Comment, Visit
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
+import datetime
 
 def doctors_list(request):
     doctors_list = Doctor.objects.order_by('-birthDate')[:5]
@@ -51,10 +52,27 @@ def register(request):
 
 @login_required(login_url='/login')
 def make_appointment(request, service_id):
-    service = get_object_or_404(Service, pk=service_id)
-    context = {'service':  service,
-               'daysOfWeekDisabled': [i % 7 for i in range(1, 8) if i not in range(service.doctor.schedule.weekdayFrom, service.doctor.schedule.weekdayTo + 1)],
-               'today': "03/13/2015"
-    }
-    return render(request, 'clinic/appointment.html', context)
+    if request.method == 'POST':
+        date_time = datetime.datetime.strptime(request.POST['dateTime'], "%d/%m/%Y %H:%M")
+        visit = Visit(patient=request.user.patient, dateTime=date_time.strftime("%Y-%m-%d %H:%M"))
+        visit.save()
+        return render(request, 'clinic/index.html', {
+            'message': date_time.strftime("%Y-%m-%d %H:%M")})
+    else:
+        service = get_object_or_404(Service, pk=service_id)
+        context = {'service':  service,
+            'minDate': '03/03/2015',
+            'maxDate': '23/03/2015',
+            'startWeek': service.doctor.schedule.weekdayFrom,
+            'endWeek': service.doctor.schedule.weekdayTo,
+            'startDay': service.doctor.schedule.hourFrom.strftime("%H:%M"),
+            'endDay': service.doctor.schedule.hourTo.strftime("%H:%M"),
+            'allowTimes': [
+                '15:30',
+                '11:00',
+                '15:00',
+                '27:00'],
+            'weekends': ['10/03/2015']
+            }
+        return render(request, 'clinic/appointment.html', context)
     
